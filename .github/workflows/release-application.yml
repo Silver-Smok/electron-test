@@ -33,7 +33,7 @@ jobs:
 
       # macOS build for both x64 and arm64
       - name: Publish Electron App release (macOS)
-        if: ${{ matrix.os == 'macos-latest' }}
+        if: ${{ matrix.os == 'macos-latest-xlarge' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
