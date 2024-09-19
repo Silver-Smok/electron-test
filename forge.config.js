@@ -32,24 +32,28 @@ module.exports = {
     },
   ],
   hooks: {
-    postPackage: async (forgeConfig, options) => {
-      const outputPath = options.outputPaths[0];
+    postMake: async (forgeConfig, options) => {
+      options.forEach((option) => {
+        const outputPath = option.artifacts[0];
 
-      if (options.arch === "x64") {
-        const newPath = path.join(
-          path.dirname(outputPath),
-          "SilverStock_x64.dmg"
-        );
-        fs.renameSync(outputPath, newPath);
-        console.log(`Renamed DMG for x64: ${newPath}`);
-      } else if (options.arch === "arm64") {
-        const newPath = path.join(
-          path.dirname(outputPath),
-          "SilverStock_arm64.dmg"
-        );
-        fs.renameSync(outputPath, newPath);
-        console.log(`Renamed DMG for arm64: ${newPath}`);
-      }
+        console.log("Output Path:", outputPath);
+
+        if (option.arch === "x64") {
+          const newPath = path.join(
+            path.dirname(outputPath),
+            "SilverStock_x64.dmg"
+          );
+          fs.renameSync(outputPath, newPath);
+          console.log(`Renamed DMG for x64: ${newPath}`);
+        } else if (option.arch === "arm64") {
+          const newPath = path.join(
+            path.dirname(outputPath),
+            "SilverStock_arm64.dmg"
+          );
+          fs.renameSync(outputPath, newPath);
+          console.log(`Renamed DMG for arm64: ${newPath}`);
+        }
+      });
     },
   },
   buildIdentifier: "multi-arch",
