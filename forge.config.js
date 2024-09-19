@@ -64,7 +64,6 @@ module.exports = {
         prerelease: false,
         draft: false,
         assets: [
-          "out/multi-arch/SilverStock.dmg",
           "out/multi-arch/SilverStock_x64.dmg",
           "out/multi-arch/SilverStock_arm64.dmg",
         ],
