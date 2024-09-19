@@ -28,6 +28,25 @@ module.exports = {
       name: "@electron-forge/maker-zip",
     },
   ],
+  hooks: {
+    postPackage: async (forgeConfig, options) => {
+      const outputPath = options.outputPaths[0];
+
+      if (options.arch === "x64") {
+        const newPath = path.join(
+          path.dirname(outputPath),
+          "SilverStock-x64.dmg"
+        );
+        fs.renameSync(outputPath, newPath);
+      } else if (options.arch === "arm64") {
+        const newPath = path.join(
+          path.dirname(outputPath),
+          "SilverStock-arm64.dmg"
+        );
+        fs.renameSync(outputPath, newPath);
+      }
+    },
+  },
   buildIdentifier: "multi-arch",
   publishers: [
     {
