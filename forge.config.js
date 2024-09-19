@@ -16,42 +16,23 @@ module.exports = {
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
-      config: {},
+      config: {
+        name: "SilverStock",
+      },
     },
     {
       name: "@electron-forge/maker-dmg",
       platforms: ["darwin"],
-      config: {
+      config: (arch) => ({
         format: "ULFO",
         icon: "icons/logo.icns",
-        name: "SilverStock",
-      },
+        name: arch === "x64" ? "SilverStock_x64" : "SilverStock_arm64",
+      }),
     },
     {
       name: "@electron-forge/maker-zip",
     },
   ],
-  hooks: {
-    postMake: async (forgeConfig, options) => {
-      options.forEach((option) => {
-        const outputPath = option.artifacts[0];
-
-        if (option.arch === "x64") {
-          const newPath = path.join(
-            path.dirname(outputPath),
-            "SilverStock_x64.dmg"
-          );
-          fs.copyFileSync(outputPath, newPath);
-        } else if (option.arch === "arm64") {
-          const newPath = path.join(
-            path.dirname(outputPath),
-            "SilverStock_arm64.dmg"
-          );
-          fs.copyFileSync(outputPath, newPath);
-        }
-      });
-    },
-  },
   buildIdentifier: "multi-arch",
   publishers: [
     {
@@ -64,6 +45,8 @@ module.exports = {
         prerelease: false,
         draft: false,
         assets: [
+          "out/make/squirrel.windows/SilverStock.Setup.exe",
+          "out/make/squirrel.windows/RELEASES",
           "out/multi-arch/SilverStock_x64.dmg",
           "out/multi-arch/SilverStock_arm64.dmg",
         ],
