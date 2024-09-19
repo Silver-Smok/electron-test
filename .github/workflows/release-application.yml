@@ -43,9 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: |
-          npm run publish -- --arch=arm64 --platform=darwin
-          ls -R out/multi-arch
+        run: npm run publish -- --arch=arm64 --platform=darwin
 
       # macOS x64 build
       - name: Publish Electron App release (Darwin x64)
@@ -53,6 +51,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: |
-          npm run publish -- --arch=x64 --platform=darwin
-          ls -R out/multi-arch
+        run: npm run publish -- --arch=x64 --platform=darwin
