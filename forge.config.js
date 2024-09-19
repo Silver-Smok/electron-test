@@ -36,24 +36,18 @@ module.exports = {
       options.forEach((option) => {
         const outputPath = option.artifacts[0];
 
-        console.log("Output Path:", outputPath);
-
         if (option.arch === "x64") {
           const newPath = path.join(
             path.dirname(outputPath),
             "SilverStock_x64.dmg"
           );
           fs.copyFileSync(outputPath, newPath);
-          option.artifacts.push(newPath);
-          console.log(`Copied DMG for x64: ${newPath}`);
         } else if (option.arch === "arm64") {
           const newPath = path.join(
             path.dirname(outputPath),
             "SilverStock_arm64.dmg"
           );
           fs.copyFileSync(outputPath, newPath);
-          option.artifacts.push(newPath);
-          console.log(`Copied DMG for arm64: ${newPath}`);
         }
       });
     },
@@ -69,6 +63,11 @@ module.exports = {
         },
         prerelease: false,
         draft: false,
+        assets: [
+          "out/multi-arch/SilverStock.dmg",
+          "out/multi-arch/SilverStock_x64.dmg",
+          "out/multi-arch/SilverStock_arm64.dmg",
+        ],
       },
     },
   ],
@@ -85,7 +84,7 @@ module.exports = {
       target: [
         {
           target: "dmg",
-          arch: ["x64"],
+          arch: ["x64", "arm64"],
         },
       ],
     },
