@@ -7,10 +7,7 @@ module.exports = {
     appBundleId: "com.silver-stock",
     name: "SilverStock",
     appCategoryType: "public.app-category.business",
-    arch: [
-      "x64", 
-      "arm64"
-    ]
+    arch: ["x64", "arm64"],
   },
   rebuildConfig: {},
   makers: [
@@ -20,7 +17,9 @@ module.exports = {
     },
     {
       name: "@electron-forge/maker-dmg",
+      platforms: ["darwin"],
       config: {
+        format: "ULFO",
         icon: "icons/logo.icns",
         name: "SilverStock",
       },
@@ -29,6 +28,7 @@ module.exports = {
       name: "@electron-forge/maker-zip",
     },
   ],
+  buildIdentifier: "multi-arch",
   publishers: [
     {
       name: "@electron-forge/publisher-github",
@@ -42,6 +42,24 @@ module.exports = {
       },
     },
   ],
+  build: {
+    win: {
+      target: [
+        {
+          target: "squirrel",
+          arch: ["x64"],
+        },
+      ],
+    },
+    mac: {
+      target: [
+        {
+          target: "dmg",
+          arch: ["x64", "arm64"],
+        },
+      ],
+    },
+  },
   plugins: [
     {
       name: "@electron-forge/plugin-auto-unpack-natives",

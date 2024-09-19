@@ -3,7 +3,7 @@ run-name: build-release
 on:
   release:
     types: [released]
-  
+
 jobs:
   release-electron-application:
     runs-on: ${{ matrix.os }}
@@ -25,16 +25,24 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-          
+          python-version: "3.10"
+
       - name: Install dependencies
-        run: npm ci    
-        
-      - name: Publish Electron App release (Windows and Darwin arm64)
+        run: npm ci
+
+      - name: Publish Electron App release (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
         run: npm run publish
+
+      - name: Publish Electron App release (Darwin arm64)
+        if: ${{ matrix.os == 'macos-latest-xlarge' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          DEBUG: "*"
+        run: npm run publish -- --arch=arm64 --platform=darwin
 
       - name: Publish Electron App release (Darwin x64)
         if: ${{ matrix.os == 'macos-latest-xlarge' }}
