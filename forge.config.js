@@ -34,17 +34,13 @@ module.exports = {
     postPackage: async (forgeConfig, options) => {
       const outputPath = options.outputPaths[0];
 
+      console.log("outputPath", outputPath);
+
       if (options.arch === "x64") {
-        const newPath = path.join(
-          path.dirname(outputPath),
-          "SilverStock-x64.dmg"
-        );
+        const newPath = path.join(path.dirname(outputPath), "SilverStock.dmg");
         fs.renameSync(outputPath, newPath);
       } else if (options.arch === "arm64") {
-        const newPath = path.join(
-          path.dirname(outputPath),
-          "SilverStock-arm64.dmg"
-        );
+        const newPath = path.join(path.dirname(outputPath), "SilverStock.dmg");
         fs.renameSync(outputPath, newPath);
       }
     },
