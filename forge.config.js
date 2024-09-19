@@ -44,6 +44,7 @@ module.exports = {
             "SilverStock_x64.dmg"
           );
           fs.copyFileSync(outputPath, newPath);
+          option.artifacts.push(newPath);
           console.log(`Copied DMG for x64: ${newPath}`);
         } else if (option.arch === "arm64") {
           const newPath = path.join(
@@ -51,6 +52,7 @@ module.exports = {
             "SilverStock_arm64.dmg"
           );
           fs.copyFileSync(outputPath, newPath);
+          option.artifacts.push(newPath);
           console.log(`Copied DMG for arm64: ${newPath}`);
         }
       });
