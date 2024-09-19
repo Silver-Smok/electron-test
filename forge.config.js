@@ -31,7 +31,7 @@ module.exports = {
       name: "@electron-forge/maker-zip",
     },
   ],
-  /*hooks: {
+  hooks: {
     postPackage: async (forgeConfig, options) => {
       const outputPath = options.outputPaths[0];
 
@@ -51,7 +51,7 @@ module.exports = {
         console.log(`Renamed DMG for arm64: ${newPath}`);
       }
     },
-  },*/
+  },
   buildIdentifier: "multi-arch",
   publishers: [
     {
