@@ -10,6 +10,7 @@ module.exports = {
     name: "SilverStock",
     appCategoryType: "public.app-category.business",
     arch: ["x64", "arm64"],
+    out: "out/multi-arch",
   },
   rebuildConfig: {},
   makers: [
