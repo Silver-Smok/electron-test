@@ -38,8 +38,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
         run: |
-          npm run make -- --arch=x64 --platform=darwin
-          npm run make -- --arch=arm64 --platform=darwin
+          npm run publish -- --arch=x64 --platform=darwin
+          npm run publish -- --arch=arm64 --platform=darwin
 
       # Windows build
       - name: Publish Electron App release (Windows)
@@ -47,4 +47,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: npm run make -- --arch=x64 --platform=win32
+        run: npm run publish -- --arch=x64 --platform=win32
