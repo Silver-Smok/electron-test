@@ -33,8 +33,9 @@ module.exports = {
   ],
   hooks: {
     postPackage: async (forgeConfig, options) => {
+      const outputPath = options.outputPaths[0];
+
       if (options.arch === "x64") {
-        const outputPath = options.outputPaths[0];
         const newPath = path.join(
           path.dirname(outputPath),
           "SilverStock_x64.dmg"
@@ -42,7 +43,6 @@ module.exports = {
         fs.renameSync(outputPath, newPath);
         console.log(`Renamed DMG for x64: ${newPath}`);
       } else if (options.arch === "arm64") {
-        const outputPath = options.outputPaths[0];
         const newPath = path.join(
           path.dirname(outputPath),
           "SilverStock_arm64.dmg"
