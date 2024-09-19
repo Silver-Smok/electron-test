@@ -35,18 +35,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: npm run publish
+        run: npm run package -- --arch=x64 --platform=win32
 
       - name: Publish Electron App release (Darwin arm64)
         if: ${{ matrix.os == 'macos-latest-xlarge' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: npm run publish -- --arch=arm64 --platform=darwin
+        run: npm run package -- --arch=arm64 --platform=darwin
 
       - name: Publish Electron App release (Darwin x64)
         if: ${{ matrix.os == 'macos-latest-xlarge' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: npm run publish -- --arch=x64 --platform=darwin
+        run: npm run package -- --arch=x64 --platform=darwin
