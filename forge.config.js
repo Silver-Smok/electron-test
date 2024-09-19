@@ -43,15 +43,15 @@ module.exports = {
             path.dirname(outputPath),
             "SilverStock_x64.dmg"
           );
-          fs.renameSync(outputPath, newPath);
-          console.log(`Renamed DMG for x64: ${newPath}`);
+          fs.copyFileSync(outputPath, newPath);
+          console.log(`Copied DMG for x64: ${newPath}`);
         } else if (option.arch === "arm64") {
           const newPath = path.join(
             path.dirname(outputPath),
             "SilverStock_arm64.dmg"
           );
-          fs.renameSync(outputPath, newPath);
-          console.log(`Renamed DMG for arm64: ${newPath}`);
+          fs.copyFileSync(outputPath, newPath);
+          console.log(`Copied DMG for arm64: ${newPath}`);
         }
       });
     },
