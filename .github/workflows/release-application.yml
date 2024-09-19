@@ -31,18 +31,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # macOS build for both x64 and arm64
+      - name: Publish Electron App release (macOS)
+        if: ${{ matrix.os == 'macos-latest' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          DEBUG: "*"
+        run: |
+          npm run make -- --arch=x64 --platform=darwin
+          npm run make -- --arch=arm64 --platform=darwin
+
       # Windows build
       - name: Publish Electron App release (Windows)
-        if: ${{ matrix.os == 'windows-latest' && matrix.platform == 'win32' }}
+        if: ${{ matrix.os == 'windows-latest' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           DEBUG: "*"
-        run: npm run publish -- --arch=${{ matrix.arch }} --platform=${{ matrix.platform }}
-
-      # macOS build (both arm64 and x64)
-      - name: Publish Electron App release (macOS)
-        if: ${{ matrix.os == 'macos-latest-xlarge' && matrix.platform == 'darwin' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
-          DEBUG: "*"
-        run: npm run publish -- --arch=${{ matrix.arch }} --platform=${{ matrix.platform }}
+        run: npm run make -- --arch=x64 --platform=win32
